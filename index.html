@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crosschecker Rekening Pro</title>
+  <title>Crosschecker Rekening Pro - DANA TOTO Edition</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* KONFIGURASI BACKGROUND GAMBAR DAN HD */
     :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(18, 24, 38, 0.95);
+      --bg-image: url('background-danatoto.png'); /* <--- INI ADALAH LINK KE GAMBAR ANDA */
+      --card-bg: rgba(18, 24, 38, 0.93); /* Sedikit lebih gelap agar teks terbaca jelas */
       --accent-gradient: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
       --accent-hover: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
       --text-main: #f8fafc;
@@ -24,10 +25,13 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     
     body {
-      background-color: var(--bg);
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
+      /* Mengatur Background Gambar */
+      background-image: var(--bg-image);
+      background-size: cover; /* Gambar menutupi seluruh layar */
+      background-position: center; /* Gambar rata tengah */
+      background-repeat: no-repeat; /* Gambar tidak mengulang */
+      background-attachment: fixed; /* Gambar tetap saat di-scroll (HD feel) */
+      
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -43,8 +47,8 @@
       border: 1px solid var(--border-color);
       border-radius: 20px;
       padding: 35px;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7); /* Bayangan lebih dramatis */
+      backdrop-filter: blur(12px); /* Efek blur kaca lebih kuat */
     }
 
     .header { text-align: center; margin-bottom: 30px; }
@@ -52,7 +56,7 @@
       font-size: 28px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      background: linear-gradient(to right, #ffffff, #94a3b8);
+      background: linear-gradient(to right, #ffffff, #c7d2fe); /* Warna gradien lebih terang */
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 8px;
@@ -170,7 +174,7 @@
 <div class="dashboard-card">
   <div class="header">
     <h2>CROSSCHECKER REKENING</h2>
-    <p>Sistem audit otomatis data rekening situs vs admin</p>
+    <p>Sistem audit otomatis data rekening situs vs admin - DANA TOTO</p>
   </div>
   
   <div class="grid-inputs">
