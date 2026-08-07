@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crosschecker Nomor Rekening</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #333; margin-top: 0; }
+    p.sub { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
+    .row { display: flex; gap: 15px; }
+    .col { flex: 1; }
+    label { font-size: 14px; color: #333; display: block; margin-bottom: 5px; }
+    textarea { width: 100%; height: 160px; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; font-family: monospace; }
+    button { width: 100%; padding: 12px; background: #0083b0; color: #fff; border: none; font-size: 16px; font-weight: bold; margin-top: 15px; cursor: pointer; border-radius: 4px; }
+    button:hover { background: #006f94; }
+    h3 { margin-top: 30px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 14px; }
+    th { background: #f8f9fa; }
+    .status-ada { color: green; font-weight: bold; }
+    .status-tidak { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Crosschecker nomor rekening</h2>
+  <p class="sub">Tempelkan data dan temukan rekening yang harus dinonaktifkan secara instan.</p>
+  
+  <div class="row">
+    <div class="col">
+      <label><b>1. Data rekening (Semua Rekening situs):</b></label>
+      <textarea id="dataSitus" placeholder="Masukkan semua nomor rekening yang ada di website/situs Anda..."></textarea>
+    </div>
+    <div class="col">
+      <label><b>2. Data rekening dari (adm):</b></label>
+      <textarea id="dataAdm" placeholder="Contoh: BCA Awwal Erlangga Ramadhan 5860560552..."></textarea>
+    </div>
+  </div>
+  
+  <button onclick="prosesCheck()">Mulai Crosscheck Otomatis</button>
+
+  <h3>Hasil Analisis:</h3>
+  <table id="tabelHasil">
+    <thead>
+      <tr>
+        <th>Nomor Rekening Terdeteksi</th>
+        <th>Status di Sistem</th>
+        <th>Tindakan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="3" style="text-align:center; color:#888;">Belum ada data yang diperiksa.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function prosesCheck() {
+  const situsText = document.getElementById('dataSitus').value;
+  const admText = document.getElementById('dataAdm').value;
+  
+  // Mengambil deretan angka min 5 digit (asumsi nomor rekening)
+  const rekSitus = Array.from(new Set(situsText.match(/\d{5,}/g) || []));
+  const rekAdm = Array.from(new Set(admText.match(/\d{5,}/g) || []));
+  
+  const tbody = document.querySelector('#tabelHasil tbody');
+  tbody.innerHTML = '';
+
+  if (rekSitus.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:red;">Tidak ada nomor rekening terdeteksi di Kolom 1.</td></tr>';
+    return;
+  }
+
+  rekSitus.forEach(noRek => {
+    const adaDiAdm = rekAdm.includes(noRek);
+    const row = `<tr>
+      <td><b>${noRek}</b></td>
+      <td class="${adaDiAdm ? 'status-ada' : 'status-tidak'}">${adaDiAdm ? 'Tersedia di ADM' : 'Tidak Ada di ADM'}</td>
+      <td>${adaDiAdm ? 'Aman' : '<span style="color:red; font-weight:bold;">Nonaktifkan</span>'}</td>
+    </tr>`;
+    tbody.innerHTML += row;
+  });
+}
+</script>
+
+</body>
+</html>
