@@ -435,14 +435,19 @@ function prosesCheck() {
   const tbody = document.querySelector('#tabelHasil tbody');
   tbody.innerHTML = '';
 
-  rekSitus.forEach(noRek => {
-    const adaDiAdm = rekAdm.includes(noRek);
-    
-    // Jika MATCH (ada di ADM), tampilkan SEGERA DIOFFKAN dengan warna merah
+  // Filter HANYA rekening yang COCOK / ADA di ADM
+  const cocok = rekSitus.filter(noRek => rekAdm.includes(noRek));
+
+  if (cocok.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color: var(--danger-text); padding: 30px;">⚠️ Tidak ada rekening yang cocok dengan data ADM.</td></tr>';
+    return;
+  }
+
+  cocok.forEach(noRek => {
     const row = `<tr>
       <td><strong style="letter-spacing: 0.5px; font-weight: 600;">${noRek}</strong></td>
-      <td><span class="badge ${adaDiAdm ? 'badge-danger' : 'badge-success'}">${adaDiAdm ? 'MATCH' : 'TIDAK COCOK'}</span></td>
-      <td>${adaDiAdm ? '<span style="color: var(--danger-text); font-weight:700; text-transform: uppercase;">⚠️ SEGERA DIOFFKAN</span>' : '<span style="color: var(--text-sub);">Aman / Aktif</span>'}</td>
+      <td><span class="badge badge-success">Terverifikasi</span></td>
+      <td><span style="color: var(--text-sub);">Aman / Aktif</span></td>
     </tr>`;
     tbody.innerHTML += row;
   });
